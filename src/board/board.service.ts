@@ -1,9 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Board } from 'src/entity/board.entity';
+import { User } from 'src/entity/user.entity';
+import { Repository } from 'typeorm';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 
 @Injectable()
 export class BoardService {
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+    @InjectRepository(Board)
+    private boardRepository: Repository<Board>,
+  ) {}
   private boards = [
     { name: '제목1', contents: '내용1', id: 1 },
     { name: '제목2', contents: '내용2', id: 2 },
@@ -11,13 +21,22 @@ export class BoardService {
     { name: '제목4', contents: '내용4', id: 4 },
     { name: '제목5', contents: '내용5', id: 5 },
   ];
-  findAll() {
-    return this.boards;
+  async findAll() {
+    return this.boardRepository.find();
   }
 
-  find(id: number) {
-    const index = this.getBoardId(id);
-    return this.boards[index];
+  async find(id: number) {
+    const board = await this.boardRepository.findOne({
+      where: { id },
+      relations: { user: true },
+    });
+
+    if (!board)
+      throw new HttpException(
+        '게시글을 찾을 수 없습니다.',
+        HttpStatus.NOT_FOUND,
+      );
+    return board;
   }
 
   create(data: CreateBoardDto) {

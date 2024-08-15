@@ -1,0 +1,34 @@
+# 게시글 전체 가져오기
+GET http://localhost:3000/board
+
+###
+
+#게시글 하나 가져오기
+GET http://localhost:3000/board/1
+
+###
+
+#게시글 생성
+POST http://localhost:3000/board
+Content-Type: application/json
+
+{
+  "name": "제목",
+  "contents": "내용"
+}
+
+###
+
+#게시글 수정
+PUT http://localhost:3000/board/1
+Content-Type: application/json
+
+{
+  "name": "제목",
+  "contents": "내용"
+}
+
+###
+
+#게시글 삭제
+DELETE http://localhost:3000/board/1
