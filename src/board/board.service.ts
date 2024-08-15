@@ -43,16 +43,16 @@ export class BoardService {
     return this.boardRepository.save(dto);
   }
 
-  update(id: number, data: UpdateBoardDto) {
-    const index = this.getBoardId(id);
-    if (index > -1) {
-      this.boards[index] = {
-        ...this.boards[index],
-        ...data,
-      };
-      return this.boards[index];
-    }
-    return null;
+  async update(id: number, dto: UpdateBoardDto) {
+    const board = await this.boardRepository.findOneBy({ id });
+
+    if (!board)
+      throw new HttpException(
+        '게시글을 찾을 수 없습니다.',
+        HttpStatus.NOT_FOUND,
+      );
+
+    return this.boardRepository.update(id, { ...dto });
   }
 
   delete(id: number) {

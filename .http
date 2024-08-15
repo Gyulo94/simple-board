@@ -4,7 +4,7 @@ GET http://localhost:3000/board
 ###
 
 #게시글 하나 가져오기
-GET http://localhost:3000/board/1
+GET http://localhost:3000/board/2
 
 ###
 
@@ -20,12 +20,11 @@ Content-Type: application/json
 ###
 
 #게시글 수정
-PUT http://localhost:3000/board/1
+PUT http://localhost:3000/board/2
 Content-Type: application/json
 
 {
-  "name": "제목",
-  "contents": "내용"
+  "contents": "chalgyu world"
 }
 
 ###

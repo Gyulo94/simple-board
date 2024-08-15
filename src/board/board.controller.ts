@@ -30,16 +30,16 @@ export class BoardController {
   }
 
   @Post()
-  create(@Body(new ValidationPipe()) data: CreateBoardDto) {
-    return this.boardService.create(data);
+  create(@Body(new ValidationPipe()) dto: CreateBoardDto) {
+    return this.boardService.create(dto);
   }
 
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(new ValidationPipe()) data: UpdateBoardDto,
+    @Body(new ValidationPipe()) dto: UpdateBoardDto,
   ) {
-    return this.boardService.update(id, data);
+    return this.boardService.update(id, dto);
   }
 
   //@Delete(':id')
