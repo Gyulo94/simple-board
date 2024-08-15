@@ -18,6 +18,7 @@ import { LoggingMiddleware } from './middleware/logging.middleware';
       database: process.env.DB_NAME,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: false,
+      logging: true,
     }),
     BoardModule,
   ],

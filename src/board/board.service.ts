@@ -39,13 +39,8 @@ export class BoardService {
     return board;
   }
 
-  create(data: CreateBoardDto) {
-    const newBoard = {
-      id: this.getNextId(),
-      ...data,
-    };
-    this.boards.push(newBoard);
-    return newBoard;
+  create(dto: CreateBoardDto) {
+    return this.boardRepository.save(dto);
   }
 
   update(id: number, data: UpdateBoardDto) {
