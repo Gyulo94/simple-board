@@ -44,7 +44,7 @@ export class BoardService {
   }
 
   async update(id: number, dto: UpdateBoardDto) {
-    const board = await this.boardRepository.findOneBy({ id });
+    const board = await this.getBoardById(id);
 
     if (!board)
       throw new HttpException(
@@ -55,21 +55,19 @@ export class BoardService {
     return this.boardRepository.update(id, { ...dto });
   }
 
-  delete(id: number) {
-    const index = this.getBoardId(id);
-    if (index > -1) {
-      const deleteBoard = this.boards[index];
-      this.boards.splice(index, 1);
-      return deleteBoard;
-    }
-    return null;
+  async delete(id: number) {
+    const board = await this.getBoardById(id);
+
+    if (!board)
+      throw new HttpException(
+        '게시글을 찾을 수 없습니다.',
+        HttpStatus.NOT_FOUND,
+      );
+
+    return this.boardRepository.remove(board);
   }
 
-  getBoardId(id: number) {
-    return this.boards.findIndex((board) => board.id === id);
-  }
-
-  getNextId() {
-    return this.boards.sort((a, b) => b.id - a.id)[0].id + 1;
+  async getBoardById(id: number) {
+    return this.boardRepository.findOneBy({ id });
   }
 }

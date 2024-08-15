@@ -4,7 +4,7 @@ GET http://localhost:3000/board
 ###
 
 #게시글 하나 가져오기
-GET http://localhost:3000/board/2
+GET http://localhost:3000/board/3
 
 ###
 
@@ -20,7 +20,7 @@ Content-Type: application/json
 ###
 
 #게시글 수정
-PUT http://localhost:3000/board/2
+PUT http://localhost:3000/board/3
 Content-Type: application/json
 
 {
@@ -30,4 +30,4 @@ Content-Type: application/json
 ###
 
 #게시글 삭제
-DELETE http://localhost:3000/board/1
+DELETE http://localhost:3000/board/3
