@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { hash } from 'bcrypt';
 import { Board } from 'src/entity/board.entity';
 import { User } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
@@ -13,7 +14,14 @@ export class UserService {
   ) {}
 
   async createUser(dto: CreateUserDto) {
-    return this.userRepository.save(dto);
+    const { username, name, password } = dto;
+
+    const encryptPassword = await this.encryptPasword(password);
+    return this.userRepository.save({
+      username,
+      name,
+      password: encryptPassword,
+    });
   }
 
   login() {
@@ -35,5 +43,10 @@ export class UserService {
     }, 'User_boardCount');
 
     return qb.getMany();
+  }
+
+  async encryptPasword(password: string) {
+    const DEFAULT_SALT = 11;
+    return hash(password, DEFAULT_SALT);
   }
 }
