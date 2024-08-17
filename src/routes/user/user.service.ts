@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { Board } from 'src/entity/board.entity';
 import { User } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class UserService {
@@ -24,8 +25,26 @@ export class UserService {
     });
   }
 
-  login() {
-    return 'login';
+  async login(dto: LoginUserDto) {
+    const { username, password } = dto;
+
+    const user = await this.userRepository.findOneBy({ username });
+
+    if (!user)
+      throw new HttpException(
+        '해당 유저가 존재하지 않습니다.',
+        HttpStatus.NOT_FOUND,
+      );
+
+    const isMatch = await compare(password, user.password);
+
+    if (!isMatch)
+      throw new HttpException(
+        '비밀번호가 일치하지 않습니다.',
+        HttpStatus.UNAUTHORIZED,
+      );
+
+    return user;
   }
 
   me() {
