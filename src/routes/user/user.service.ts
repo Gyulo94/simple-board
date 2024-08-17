@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { compare, hash } from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 import { Board } from 'src/entity/board.entity';
 import { User } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
@@ -44,7 +45,14 @@ export class UserService {
         HttpStatus.UNAUTHORIZED,
       );
 
-    return user;
+    const payload = {
+      username,
+      name: user.name,
+    };
+
+    const accessToken = jwt.sign(payload, 'secret-key', { expiresIn: '1h' });
+
+    return accessToken;
   }
 
   me() {
