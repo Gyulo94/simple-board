@@ -26,6 +26,10 @@ export class UserService {
     });
   }
 
+  async getUserByUsername(username: string) {
+    return this.userRepository.findOneBy({ username });
+  }
+
   async login(dto: LoginUserDto) {
     const { username, password } = dto;
 
