@@ -31,3 +31,8 @@ Content-Type: application/json
 
 #게시글 삭제
 DELETE http://localhost:3000/board/3
+
+###
+
+# 유저 리스트 가져오기
+GET http://localhost:3000/user
