@@ -11,17 +11,18 @@ GET http://localhost:3000/board/3
 #게시글 생성
 POST http://localhost:3000/board
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJneXVsbzk0IiwibmFtZSI6IuuwleyyoOq3nCIsImlhdCI6MTcyMzk4NTIyOCwiZXhwIjoxNzIzOTg4ODI4fQ.yRjDmcjoGUq25MGNW-kC3v_QphtWtlzPt43z4FFVZt0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJneXVsbzk0MSIsIm5hbWUiOiLrsJXssqDqt5wiLCJpYXQiOjE3MjM5ODU5MzcsImV4cCI6MTcyMzk4OTUzN30.Uk2MeLmHW2s72Uy-A8up_wI_7ztwGUAOE1RXNUWKhzY
 
 {
-  "contents": "new api"
+  "contents": "new apia"
 }
 
 ###
 
 #게시글 수정
-PUT http://localhost:3000/board/3
+PUT http://localhost:3000/board/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJneXVsbzk0MSIsIm5hbWUiOiLrsJXssqDqt5wiLCJpYXQiOjE3MjM5ODU5MzcsImV4cCI6MTcyMzk4OTUzN30.Uk2MeLmHW2s72Uy-A8up_wI_7ztwGUAOE1RXNUWKhzY
 
 {
   "contents": "chalgyu world"
@@ -30,7 +31,7 @@ Content-Type: application/json
 ###
 
 #게시글 삭제
-DELETE http://localhost:3000/board/3
+DELETE http://localhost:3000/board/2
 
 ###
 
@@ -44,7 +45,7 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-  "username": "gyulo94",
+  "username": "gyulo941",
   "name": "박철규",
   "password": "1234"
 }
@@ -67,7 +68,7 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "gyulo94",
+  "username": "gyulo941",
   "password": "1234"
 }
 

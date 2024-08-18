@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Board } from 'src/entity/board.entity';
 import { User } from 'src/entity/user.entity';
@@ -14,13 +19,7 @@ export class BoardService {
     @InjectRepository(Board)
     private boardRepository: Repository<Board>,
   ) {}
-  private boards = [
-    { name: '제목1', contents: '내용1', id: 1 },
-    { name: '제목2', contents: '내용2', id: 2 },
-    { name: '제목3', contents: '내용3', id: 3 },
-    { name: '제목4', contents: '내용4', id: 4 },
-    { name: '제목5', contents: '내용5', id: 5 },
-  ];
+
   async findAll() {
     return this.boardRepository.find();
   }
@@ -43,7 +42,7 @@ export class BoardService {
     return this.boardRepository.save(dto);
   }
 
-  async update(id: number, dto: UpdateBoardDto) {
+  async update(userId: number, id: number, dto: UpdateBoardDto) {
     const board = await this.getBoardById(id);
 
     if (!board)
@@ -51,11 +50,15 @@ export class BoardService {
         '게시글을 찾을 수 없습니다.',
         HttpStatus.NOT_FOUND,
       );
+
+    if (userId !== board.userId) {
+      throw new UnauthorizedException();
+    }
 
     return this.boardRepository.update(id, { ...dto });
   }
 
-  async delete(id: number) {
+  async delete(userId: number, id: number) {
     const board = await this.getBoardById(id);
 
     if (!board)
@@ -63,6 +66,10 @@ export class BoardService {
         '게시글을 찾을 수 없습니다.',
         HttpStatus.NOT_FOUND,
       );
+
+    if (userId !== board.userId) {
+      throw new UnauthorizedException();
+    }
 
     return this.boardRepository.remove(board);
   }
