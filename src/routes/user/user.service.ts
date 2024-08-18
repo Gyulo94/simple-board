@@ -59,10 +59,6 @@ export class UserService {
     return accessToken;
   }
 
-  me() {
-    return 'me';
-  }
-
   async getUsers() {
     const qb = this.userRepository.createQueryBuilder();
 
