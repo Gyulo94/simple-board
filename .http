@@ -11,10 +11,10 @@ GET http://localhost:3000/board/3
 #게시글 생성
 POST http://localhost:3000/board
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJneXVsbzk0IiwibmFtZSI6IuuwleyyoOq3nCIsImlhdCI6MTcyMzk4NTIyOCwiZXhwIjoxNzIzOTg4ODI4fQ.yRjDmcjoGUq25MGNW-kC3v_QphtWtlzPt43z4FFVZt0
 
 {
-  "userId": 1,
-  "contents": "contents 11"
+  "contents": "new api"
 }
 
 ###
@@ -76,4 +76,4 @@ Content-Type: application/json
 # 유저 ME
 GET http://localhost:3000/me
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imd5dWxvOTQiLCJuYW1lIjoi67CV7LKg6recIiwiaWF0IjoxNzIzOTgzOTA2LCJleHAiOjE3MjM5ODc1MDZ9.f4X14z6_FcgWw-VEiw3AqixIM_ZBnB5jF1vKbiUpHDs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJneXVsbzk0IiwibmFtZSI6IuuwleyyoOq3nCIsImlhdCI6MTcyMzk4NDY2NywiZXhwIjoxNzIzOTg4MjY3fQ.nerFGQG1fvaqILj08a-OMPK_xz_KPly-y_zpB6hPMbk
